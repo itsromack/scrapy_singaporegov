@@ -33,7 +33,12 @@ class PersonsSpider(scrapy.Spider):
             fullname = ''.join(item.xpath('.//td/font/a/text()').extract()).strip().strip('\n').strip('\t').strip('\r')
             if fullname != '':
                 job_title = item.xpath('td/font/text()').extract()[0]
+                if (job_title == ''):
+                    job_title = 'NO JOB TITLE'
+                did = item.xpath('td/font/text()').extract()[2].strip().strip('\n').strip('\t').strip('\r').strip('\n')
                 email = ''.join(item.xpath('.//script/text()').extract()).strip().strip('\n').strip('fn_emailScramble(\'').strip('\');').strip('\n').strip('\r').replace("','", '@')
+                if (email == ''):
+                    email = 'NO EMAIL ADDRESS'
                 f = open('persons.csv', 'a')
-                f.write(','.join([ministry, department, job_title, fullname, email, response.url, '\n\r']))
+                f.write(','.join([ministry, department, job_title, did, fullname, email, response.url, '\n\r']))
                 f.close()
