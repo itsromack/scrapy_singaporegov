@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
 import scrapy
-from singaporegov.items import SingaporegovItem
 
 class PersonsSpider(scrapy.Spider):
     counter = 0
