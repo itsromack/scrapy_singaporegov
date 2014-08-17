@@ -32,7 +32,6 @@ class PersonsSpider(scrapy.Spider):
         items = response.xpath('//table[contains(@class, "peopleList")]/tr')
         for item in items:
             fullname = ''.join(item.xpath('.//td/font/a/text()').extract()).strip().strip('\n').strip('\t').strip('\r')
-            # print ''.join(item.xpath('.//td/font/text()').extract()[0]).strip().strip('\n').strip('\t').strip('\r')
             if fullname != '':
                 job_title = item.xpath('td/font/text()').extract()[0]
                 email = ''.join(item.xpath('.//script/text()').extract()).strip().strip('\n').strip('fn_emailScramble(\'').strip('\');').strip('\n').strip('\r').replace("','", '@')
